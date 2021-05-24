@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styles from '../../styles/place.module.css';
 
 const Place = ({
+  id,
   name,
-  description,
-  location,
   pricePerNight,
-  image,
   imageThumbnail,
-  maxGuests,
   petFriendly,
   pool,
   wifi,
@@ -32,6 +30,7 @@ const Place = ({
         {pool && <span>👙</span>}
         {wifi && <span>🛰</span>}
       </li>
+      <Link to={id}>More info</Link>
     </ul>
   );
 };
