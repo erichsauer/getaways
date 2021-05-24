@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from '../../styles/place.module.css';
 
 const Place = ({
   name,
@@ -13,18 +14,24 @@ const Place = ({
   pool,
   wifi,
 }) => {
+  let price;
+  if (pricePerNight <= 150) price = '💰';
+  else if (pricePerNight > 150 && pricePerNight < 300) price = '💰💰';
+  else if (pricePerNight >= 300) price = '💰💰💰';
   return (
     <ul>
       <li>{name}</li>
-      <li>{description}</li>
-      <li>{location}</li>
-      <li>{pricePerNight}</li>
-      <li>{image}</li>
-      <li>{imageThumbnail}</li>
-      <li>{maxGuests}</li>
-      <li>{petFriendly ? 'Pet Friendly' : 'No Pets Allowed'}</li>
-      {pool ? <li>Has a Pool!</li> : null}
-      {wifi ? <li>Free Wifi</li> : null}
+      {/* <li>{description}</li> */}
+      {/* <li>{location}</li> */}
+      <img src={imageThumbnail} alt={name} />
+      {/* <li>{imageThumbnail}</li>
+      <li>Maximum Number of Guests: {maxGuests}</li> */}
+      <li>
+        <span>{price}</span>
+        <span>{petFriendly && '🐶'}</span>
+        {pool && <span>👙</span>}
+        {wifi && <span>🛰</span>}
+      </li>
     </ul>
   );
 };
