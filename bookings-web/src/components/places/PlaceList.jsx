@@ -5,7 +5,6 @@ import Place from './Place';
 const PlaceList = ({ places }) => {
   return places.map((place) => <Place key={place.id} {...place} />);
 };
-
 PlaceList.propTypes = {
   places: PropTypes.arrayOf(
     PropTypes.shape({
