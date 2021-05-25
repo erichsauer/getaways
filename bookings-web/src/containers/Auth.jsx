@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import Registration from '../components/app/Registration';
+import Login from '../components/auth/Login';
+import Registration from '../components/auth/Registration';
+import { saveToLocalStorage } from '../components/utils/localStorage';
 
-const Auth = () => {
+const Auth = ({ token, user, onRegistration, onLogIn, onLogOut }) => {
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -9,20 +11,22 @@ const Auth = () => {
     subscription: false,
   });
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-  };
-
   const handleFormChange = ({ target: { value, name, type } }) => {
-    setForm((form) => ({
-      ...form,
-      [name]: type === 'checkbox' ? !form[name] : value,
+    setForm((prevForm) => ({
+      ...prevForm,
+      [name]: type === 'checkbox' ? !prevForm[name] : value,
     }));
   };
 
+  if (token && user) return <button onClick={onLogOut}>Log out</button>;
+  if (user)
+    return (
+      <Login onFormSubmit={onLogIn} onFormChange={handleFormChange} {...form} />
+    );
+
   return (
     <Registration
-      onFormSubmit={handleFormSubmit}
+      onFormSubmit={onRegistration}
       onFormChange={handleFormChange}
       {...form}
     />
